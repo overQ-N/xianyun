@@ -20,12 +20,31 @@
           </el-menu-item>
         </el-menu>
       </el-col>
-
-      <el-col :span="3" class="user">
-        <nuxt-link to>
+      <el-col v-if="user.userInfo.user.username" :span="3" class="userInfo">
+        <img :src="$axios.defaults.baseURL+user.userInfo.user.defaultAvatar" alt="">
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            {{ user.userInfo.user.nickname }}
+            <i class="el-icon-arrow-down el-icon--right" />
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="userCenter">
+              个人中心
+            </el-dropdown-item>
+            <el-dropdown-item command="setting">
+              设置
+            </el-dropdown-item>
+            <el-dropdown-item command="logout">
+              退出
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
+      <el-col v-else :span="3" class="user">
+        <nuxt-link to="/user">
           登录
         </nuxt-link>/
-        <nuxt-link to>
+        <nuxt-link to="/user">
           注册
         </nuxt-link>
       </el-col>
@@ -34,6 +53,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -49,20 +69,31 @@ export default {
   computed: {
     path () {
       return this.$route.path
-    }
+    },
+    ...mapState(['user'])
   },
   methods: {
     // 菜单激活的回调
     handleItem (index) {
       this.activeIndex = index
-    }
+    },
+    // 用户中心的处理
+    handleCommand (key) {
+      // 如果点击了用户中心
+      if (key === 'userCenter') {
 
+      } else if (key === 'setting') { // 设置
+      } else if (key === 'logout') { // 退出
+        this.$store.commit('user/setuserInfo', { user: {} })
+        this.$message.success('退出成功')
+      }
+    }
   }
 }
 </script>
 
 <style lang='less' scoped>
-@import '~assets/variable.less';
+@import "~assets/variable.less";
 .container {
   border-bottom: 1px solid #dddddd;
   box-shadow: 0 3px 3px #ddd;
@@ -71,48 +102,60 @@ export default {
     margin: 0 auto;
     .logo {
       img {
-        padding-top:8px;
+        padding-top: 8px;
         width: 100%;
         height: 100%;
       }
     }
-    .menu{
-      .el-menu{
-        border-bottom:none;
-        .el-menu-item{
+    .menu {
+      .el-menu {
+        border-bottom: none;
+        .el-menu-item {
           font-size: 16px;
           border-bottom: none;
-          padding-left:0;
+          padding-left: 0;
           padding-right: 0;
-          a{
+          a {
             display: block;
             width: 100%;
             height: 100%;
-            padding-left:20px;
-          padding-right: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
-          &:hover{
+          &:hover {
             border-bottom: 5px solid @color-theme!important;
-            color:@color-theme;
+            color: @color-theme;
           }
         }
-        .active{
+        .active {
           background: @color-theme;
-        }
-       }
-    }
-    .user{
-      text-align: center;
-      line-height: 60px;
-      font-size: 14px;
-      color:#666;
-      a{
-        &:hover{
-          color:@color-theme;
         }
       }
     }
+    .user {
+      text-align: center;
+      line-height: 60px;
+      font-size: 14px;
+      color: #666;
+      a {
+        &:hover {
+          color: @color-theme;
+        }
+      }
+    }
+    .userInfo{
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #666;
+      img{
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+      }
+    }
   }
-
 }
 </style>
