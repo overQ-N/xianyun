@@ -6,7 +6,7 @@
           <LoginForm />
         </el-tab-pane>
         <el-tab-pane label="注册">
-          注册
+          <RegisterForm />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -15,9 +15,11 @@
 
 <script>
 import LoginForm from '@/components/user/LoginForm.vue'
+import RegisterForm from '@/components/user/RegisterForm.vue'
 export default {
   components: {
-    LoginForm
+    LoginForm,
+    RegisterForm
   }
 }
 </script>

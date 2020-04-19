@@ -11,9 +11,23 @@ export const mutations = {
   }
 }
 export const actions = {
+  // 登录接口
   async login (store, data) {
     const { data: res } = await this.$axios.post('/accounts/login', data)
     store.commit('setuserInfo', res)
+    return res
+  },
+  async getCode (store, tel) {
+    const { data: res } = await this.$axios.post('/captchas', tel)
+    return res
+  },
+  async register (store, registerForm) {
+    const { data: res } = await this.$axios({
+      url: '/accounts/register',
+      method: 'POST',
+      data: registerForm
+
+    })
     return res
   }
 }
