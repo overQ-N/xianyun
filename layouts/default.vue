@@ -45,5 +45,7 @@ a:hover{
 em,i{
   font-style: normal;
 }
-
+img{
+  width:100%;
+}
 </style>
