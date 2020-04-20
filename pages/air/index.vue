@@ -8,8 +8,8 @@
     <!-- 搜索广告栏 -->
     <el-row type="flex" justify="space-between">
       <!-- 搜索表单 -->
-      <div>搜索</div>
-
+      <!-- <div>搜索</div> -->
+      <SearchForm />
       <!-- banner广告 -->
       <div class="sale-banner">
         <img src="http://157.122.54.189:9093/images/pic_sale.jpeg">
@@ -43,8 +43,11 @@
 </template>
 
 <script>
+import SearchForm from './searchForm'
 export default {
-
+  components: {
+    SearchForm
+  }
 }
 </script>
 
