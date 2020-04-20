@@ -40,7 +40,16 @@
 <script>
 export default {
   name: 'ThreePic',
-  props: ['postData']
+  props: {
+    postData: {
+      type: Object,
+      default: () => {
+        return {
+
+        }
+      }
+    }
+  }
 }
 </script>
 

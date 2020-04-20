@@ -35,7 +35,17 @@
 
 export default {
   name: 'OnePic',
-  props: ['postData']
+  props: {
+    postData: {
+      type: Object,
+      default: () => {
+        return {
+
+        }
+      }
+    }
+
+  }
 }
 </script>
 

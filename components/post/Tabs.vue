@@ -36,7 +36,14 @@
 
 <script>
 export default {
-  props: ['cities'],
+  props: {
+    cities: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
   data () {
     return {
       activeIndex: 99

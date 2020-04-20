@@ -28,7 +28,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route.query)
     this.getPostDetail()
   },
   methods: {
@@ -36,7 +35,6 @@ export default {
       this.$axios
         .get('/posts', { params: { id: this.$route.query.id } })
         .then(({ data }) => {
-          console.log(data)
           this.postDetail = data.data[0]
         })
     }
