@@ -3,10 +3,12 @@
     <el-row type="flex" justify="space-between">
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
-        <!-- 过滤条件 -->
-        <FlightHeader />
-
+        <!-- 航班过滤条件 -->
+        <!-- -->
+        <FlightsFilter :data="filtersObjOrigin" @getFilterAirList="getFilterAirList" />
         <!-- 航班头部布局 -->
+        <FlightHeader />
+        <!-- 航班信息 -->
         <FlightItem v-for="item in flights" :key="item.id" :data="item" />
         <el-pagination
           :current-page="queryInfo.pageIndex"
@@ -17,8 +19,6 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
-        <!-- 航班信息 -->
-        <div />
       </div>
       <!-- 侧边栏 -->
       <div class="aside">
@@ -33,16 +33,27 @@
 // import moment from "moment";
 import FlightItem from '@/components/air/FlightItem'
 import FlightHeader from '@/components/air/FlightHeader'
-
+import FlightsFilter from '@/components/air/FlightsFilter'
 export default {
   components: {
     FlightHeader,
-    FlightItem
+    FlightItem,
+    FlightsFilter
   },
   data () {
     return {
       // 航班信息
-      flightsObj: {},
+      filtersObjOrigin: {
+        options: [],
+        info: {},
+        flights: []
+      },
+      // 航班信息的镜像
+      flightsObj: {
+        options: [],
+        info: {},
+        flights: []
+      },
       // 所有航班列表
       flights: [],
       queryInfo: {
@@ -69,6 +80,8 @@ export default {
           // 储存所有航班信息，用于分页
           this.flightsObj = data
           this.total = data.total
+          this.filtersObjOrigin = { ...data }
+          console.log(this.flightsObj)
           // 默认显示第一页数据
           this.flights = data.flights.slice(0, 5)
         })
@@ -84,6 +97,15 @@ export default {
     sliceFlights () {
       const { pageIndex, pageSize } = this.queryInfo
       this.flights = this.flightsObj.flights.slice((pageIndex - 1) * pageSize, pageIndex * pageSize)
+    },
+    // 接收子组件传过来的符合的条件的航班列表数据
+    getFilterAirList (arr) {
+      console.log(arr)
+      this.flightsObj.flights = arr
+      this.total = arr.length
+      // 默认显示第一页数据
+      this.queryInfo.pageIndex = 1
+      this.flights = this.flightsObj.flights.slice(0, 5)
     }
   }
 }
