@@ -10,6 +10,9 @@
         <FlightHeader />
         <!-- 航班信息 -->
         <FlightItem v-for="item in flights" :key="item.id" :data="item" />
+        <div v-show="flights.length<=0" class="isNone">
+          没有符合条件的航班信息✈~~~
+        </div>
         <el-pagination
           :current-page="queryInfo.pageIndex"
           :page-sizes="[5, 10, 20, 40]"
@@ -100,7 +103,6 @@ export default {
     },
     // 接收子组件传过来的符合的条件的航班列表数据
     getFilterAirList (arr) {
-      console.log(arr)
       this.flightsObj.flights = arr
       this.total = arr.length
       // 默认显示第一页数据
@@ -124,5 +126,11 @@ export default {
 
     .aside{
         width:240px;
+    }
+    .isNone{
+      height: 500px;
+      text-align: center;
+      line-height: 200px;
+      color:#999;
     }
 </style>
