@@ -29,7 +29,9 @@
       <div class="title">
         推荐城市
       </div>
-      <img src="http://157.122.54.189:9093/images/pic_sea.jpeg" alt>
+      <nuxt-link to="#">
+        <img src="http://157.122.54.189:9093/images/pic_sea.jpeg" alt>
+      </nuxt-link>
     </div>
   </div>
 </template>
