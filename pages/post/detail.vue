@@ -147,15 +147,13 @@ export default {
     console.log(this.$route.query.id, '------------------id---------------')
   },
   methods: {
-<<<<<<< HEAD
-    getPostDetail () {
-      this.$axios
-        .get('/posts', { params: { id: this.$route.query.id } })
-        .then(({ data }) => {
-          this.postDetail = data.data[0]
-        })
-    }
-=======
+    // getPostDetail () {
+    //   this.$axios
+    //     .get('/posts', { params: { id: this.$route.query.id } })
+    //     .then(({ data }) => {
+    //       this.postDetail = data.data[0]
+    //     })
+    // },
     // 获取文章详情
     getPostDetail (id) {
       this.$axios.get('/posts', { params: { id } }).then(({ data }) => {
@@ -200,7 +198,6 @@ export default {
     },
     // 图片删除
     handleRemove (file) {}
->>>>>>> post
   }
 }
 </script>

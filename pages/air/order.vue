@@ -7,16 +7,29 @@
       </div>
 
       <!-- 侧边栏 -->
-      <div class="aside" />
+      <div class="aside">
+        <OrderAside :data="$store.state.air.orderDetail" />
+      </div>
     </el-row>
   </div>
 </template>
 
 <script>
 import OrderForm from '@/components/air/OrderForm'
+import OrderAside from '@/components/air/OrderAside'
 export default {
   components: {
-    OrderForm
+    OrderForm,
+    OrderAside
+  },
+  data () {
+    return {
+      // 机票信息
+      infoData: {
+        insurances: [], // 初始化保险数据
+        seat_infos: {}
+      }
+    }
   }
 }
 </script>
