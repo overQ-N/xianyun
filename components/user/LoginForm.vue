@@ -49,7 +49,7 @@ export default {
         this.$message.success('登录成功,正在跳转')
         this.$refs.form.resetFields()
         setTimeout(() => {
-          this.$router.push('/')
+          this.$router.back()
         }, 500)
       })
     }

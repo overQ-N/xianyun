@@ -106,7 +106,6 @@ export default {
       arr = this.data.flights.filter((v) => {
         return hasValue.every((key) => {
           if (flightTimes) {
-            console.log(flightTimes)
             const time = flightTimes.split(',')
             const current = v.dep_time.split(':')[0]
             return +time[0] <= +current && +current < time[1] && option[key] === v[key]
@@ -155,7 +154,11 @@ export default {
 
     // 撤销条件时候触发
     handleFiltersCancel () {
-
+      this.airport = ''
+      this.flightTimes = ''
+      this.company = ''
+      this.airSize = ''
+      this.$emit('getFilterAirList', this.data.flights)
     }
   }
 }
