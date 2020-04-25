@@ -65,7 +65,7 @@
           </el-form-item>
         </el-form>
         <el-button type="warning" class="submit" @click="handleSubmit">
-          提交订单
+          提交订单{{ totalPrice }}
         </el-button>
       </div>
     </div>
@@ -153,7 +153,9 @@ export default {
           }
         })
       })
-      return price
+      price *= this.orderForm.users.length
+      this.$store.commit('air/setTotalPrice', { totalPrice: price, users: this.orderForm.users.length })
+      return ''
     }
   },
 
@@ -230,7 +232,14 @@ export default {
               Authorization: 'Bearer ' + this.$store.state.user.userInfo.token
             }
           }).then(({ data }) => {
-            console.log(data, '提交表单')
+            this.$message.success('创建订单成功!')
+            const { id } = data.data
+            this.$router.push({
+              path: '/air/pay',
+              query: {
+                id
+              }
+            })
           })
         }
       })
