@@ -209,6 +209,8 @@ export default {
         if (!valid) {
           return false
         }
+        // 提交表单前把搜索记录存至本地
+        this.$store.commit('air/setSearchItem', this.form)
         this.$router.push({
           path: '/air/flights',
           query: this.form

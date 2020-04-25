@@ -26,6 +26,7 @@
       <!-- 侧边栏 -->
       <div class="aside">
         <!-- 侧边栏组件 -->
+        <FlightsAside />
       </div>
     </el-row>
   </section>
@@ -37,11 +38,13 @@
 import FlightItem from '@/components/air/FlightItem'
 import FlightHeader from '@/components/air/FlightHeader'
 import FlightsFilter from '@/components/air/FlightsFilter'
+import FlightsAside from '@/components/air/FlightsAside'
 export default {
   components: {
     FlightHeader,
     FlightItem,
-    FlightsFilter
+    FlightsFilter,
+    FlightsAside
   },
   data () {
     return {
@@ -68,9 +71,11 @@ export default {
       total: 0
     }
   },
-  computed: {
-    // 切割机票数据，用于分页
-
+  watch: {
+    // 当路由发生变化时， 一般是点击历史记录时
+    $route () {
+      this.getAirs()
+    }
   },
   mounted () {
     this.getAirs()
@@ -84,7 +89,6 @@ export default {
           this.flightsObj = data
           this.total = data.total
           this.filtersObjOrigin = { ...data }
-          console.log(this.flightsObj)
           // 默认显示第一页数据
           this.flights = data.flights.slice(0, 5)
         })

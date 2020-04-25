@@ -1,9 +1,16 @@
 import { Message } from 'element-ui'
-export default ({ $axios }) => {
-  $axios.onError((err) => {
+export default (nuxt) => {
+  nuxt.$axios.onError((err) => {
     if (err) {
-      const { message } = err.response.data
-      Message.error(message)
+      const { message, statusCode } = err.response.data
+      if (statusCode === 400) {
+        Message.error(message)
+      }
+
+      if (statusCode === 403) {
+        Message.error('请先登录再进行操作')
+        nuxt.redirect('/user')
+      }
     }
   })
 }

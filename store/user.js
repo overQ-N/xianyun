@@ -17,6 +17,7 @@ export const actions = {
     store.commit('setuserInfo', res)
     return res
   },
+  // 获取验证码
   async getCode (store, tel) {
     const { data: res } = await this.$axios.post('/captchas', tel)
     return res

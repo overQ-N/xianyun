@@ -2,7 +2,7 @@
   <div class="flight-item">
     <div>
       <!-- 显示的机票信息 -->
-      <el-row type="flex" align="middle" class="flight-info">
+      <el-row type="flex" align="middle" class="flight-info" @click.native="showSeat">
         <el-col :span="6">
           <span>{{ data.airline_name }} </span> {{ data.flight_no }}
         </el-col>
@@ -27,7 +27,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="flight-recommend">
+    <div v-show="isShowSeat" class="flight-recommend">
       <!-- 隐藏的座位信息列表 -->
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="4">
@@ -52,6 +52,7 @@
               <el-button
                 type="warning"
                 size="mini"
+                @click="handleChoose(data.id,item.seat_xid)"
               >
                 选定
               </el-button>
@@ -66,7 +67,6 @@
 
 <script>
 export default {
-
   props: {
     // 数据
     data: {
@@ -77,6 +77,11 @@ export default {
       }
     }
 
+  },
+  data () {
+    return {
+      isShowSeat: false
+    }
   },
   computed: {
     // 计算时间 格式为2小时20分
@@ -98,6 +103,22 @@ export default {
 
       // }
       return h + '小时' + m + '分'
+    }
+  },
+  methods: {
+    // 选定机票时触发，去往创建订单页面
+    handleChoose (id, seatid) {
+      this.$router.push({
+        path: '/air/order',
+        query: {
+          id,
+          seat_xid: seatid
+        }
+      })
+    },
+    // 显示低价推荐
+    showSeat () {
+      this.isShowSeat = !this.isShowSeat
     }
   }
 }
