@@ -32,11 +32,15 @@ import QRcode from 'qrcode'
 export default {
   data () {
     return {
-      detail: {}
+      detail: {},
+      timer: null
     }
   },
   mounted () {
     this.getOrderDetail()
+  },
+  destroyed () {
+    clearInterval(this.timer)
   },
   methods: {
     getOrderDetail () {
@@ -53,6 +57,33 @@ export default {
             QRcode.toCanvas(canvas, this.detail.payInfo.code_url, {
               width: 200
             })
+            return data
+          })
+          .then((res) => {
+            return new Promise((resolve, reject) => {
+              this.timer = setInterval(() => {
+                const checkpay = this.$axios({
+                  url: 'airorders/checkpay',
+                  method: 'POST',
+                  headers: {
+                    Authorization: 'Bearer ' + this.$store.state.user.userInfo.token
+                  },
+                  data: {
+                    id: res.id,
+                    nonce_str: res.price,
+                    out_trade_no: res.orderNo
+                  }
+                })
+                resolve(checkpay)
+              }, 3000)
+            })
+          })
+          .then((res) => {
+            if (res.data.statusTxt === '支付完成') {
+              clearInterval(this.timer)
+              this.$message.success('订单支付完成')
+              this.$router.push('/air')
+            }
           })
       }, 0)
     }

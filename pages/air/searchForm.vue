@@ -129,7 +129,15 @@ export default {
   mounted () {},
   methods: {
     // tab切换时触发
-    handleSearchTab (item, index) {},
+    handleSearchTab (item, index) {
+      // 如果点击的是往返
+      if (index === 1) {
+        this.$alert('暂无不支持往返功能', '提示', {
+          confirmButtonText: '确定'
+        }
+        )
+      }
+    },
 
     // 出发城市输入框获得焦点时触发
     // value 是选中的值，cb是回调函数，接收要展示的列表
@@ -201,7 +209,14 @@ export default {
     handleDate (value) {},
 
     // 触发和目标城市切换时触发
-    handleReverse () {},
+    handleReverse () {
+      const tempDestCity = this.form.departCity
+      const tempDepartCode = this.form.departCode
+      this.form.departCity = this.form.destCity
+      this.form.departCode = this.form.destCode
+      this.form.destCity = tempDestCity
+      this.form.destCode = tempDepartCode
+    },
 
     // 提交表单是触发
     handleSubmit () {

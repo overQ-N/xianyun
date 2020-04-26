@@ -17,7 +17,7 @@ export const mutations = {
   setSearchItem (state, data) {
     state.searchList.unshift(data)
     if (state.searchList.length > 8) {
-      state.searchList = 8
+      state.searchList.length = 8
     }
   },
   // 添加订单详情

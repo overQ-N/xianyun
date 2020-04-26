@@ -211,6 +211,8 @@ export default {
           .then((res) => {
             this.$message.success('验证码发送成功,模拟验证码为', res.code)
           })
+      } else {
+        this.$refs.orderFormRef2.validateField('contactPhone')
       }
     },
 
