@@ -85,7 +85,7 @@ export default {
               this.$router.push('/air')
             }
           })
-      }, 0)
+      }, 10)
     }
   }
 }

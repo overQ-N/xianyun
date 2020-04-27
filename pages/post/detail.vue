@@ -177,7 +177,6 @@ export default {
         url: '/posts/comments',
         params: this.queyInfo
       }).then(({ data }) => {
-        console.log(data, 'comments-----')
         this.comments = data.data
         this.total = data.total
       })
@@ -189,13 +188,11 @@ export default {
     },
     // 图片上传成功的钩子
     handleUpload (file) {
-      console.log(file, '---------')
     },
     // 图片预览
     handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
-      console.log(this.fileList)
     },
     // 图片删除
     handleRemove (file) {}

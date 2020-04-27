@@ -31,7 +31,7 @@
             </div>
             <el-pagination
               :current-page="queryInfo.page"
-              :page-sizes="[4, 6, 10, 20]"
+              :page-sizes="[5, 6, 10, 20]"
               :page-size="queryInfo.size"
               layout="total, sizes, prev, pager, next, jumper"
               :total="total"
