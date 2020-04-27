@@ -41,11 +41,8 @@ export default {
   plugins: [
     { src: '@/plugins/element-ui' },
     { src: '~/plugins/localStorage.js', ssr: false },
-<<<<<<< HEAD
-    '@/plugins/axios'
-=======
+    '@/plugins/axios',
     { src: '~plugins/nuxt-quill-plugin', ssr: false }
->>>>>>> post
   ],
   /*
   ** Nuxt.js dev-modules
