@@ -16,7 +16,9 @@
       </div>
       <div class="comment-main">
         <p>{{ item.content }}</p>
-        <img v-if="item.pics.length>0" src="" alt="">
+        <div v-if="item.pics.length>0">
+          <img v-for="(pic, index) in item.pics" :key="index" :src="pic" alt="">
+        </div>
       </div>
       <!-- </div> -->
     </div>

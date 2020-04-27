@@ -19,7 +19,7 @@
             <h4 @click="getRecommend">
               推荐攻略
             </h4>
-            <el-button type="primary" icon="el-icon-edit">
+            <el-button type="primary" icon="el-icon-edit" @click="$router.push('/post/post-release')">
               写游记
             </el-button>
           </div>
