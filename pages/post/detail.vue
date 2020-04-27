@@ -21,7 +21,7 @@
       <div class="share">
         <div class="share-edit share-item">
           <i class="el-icon-edit-outline" />
-          <span>评论()</span>
+          <span>评论({{ total }})</span>
         </div>
 
         <div class="share-share share-item">
@@ -69,6 +69,9 @@
         <!-- 评论列表 -->
         <div class="comment-list">
           <CommentItem v-for="(item, index) in comments" :key="index" :item="item" :is-last="true" />
+          <div v-if="comments.length<=0" class="comment-none">
+            暂无评论,赶紧发表评论抢占沙发~
+          </div>
         </div>
       </div>
     </div>
@@ -138,19 +141,18 @@ export default {
         // 文章id
         post: ''
       },
+      // 评论总数
       total: 0
     }
   },
   mounted () {
-    this.getPostDetail()
+    this.getPostDetail(this.$route.query.id)
     this.getRecommend(this.$route.query.id)
-    console.log(this.$route.query.id, '------------------id---------------')
   },
   methods: {
     // 获取文章详情
     getPostDetail (id) {
       this.$axios.get('/posts', { params: { id } }).then(({ data }) => {
-        console.log(data.data)
         this.postDetail = data.data[0]
         this.queyInfo.post = id
         this.getComments()
@@ -160,7 +162,6 @@ export default {
     getRecommend () {
       this.$axios.get('/posts/recommend').then(({ data }) => {
         this.recommends = data.data
-        console.log(this.recommends)
       })
     },
     // 获取评论
@@ -320,5 +321,12 @@ export default {
   border:1px solid #ddd;
   padding:0 20px;
 
+}
+// 没有评论时的显示的内容
+.comment-none{
+  height: 200px;
+  color:#999;
+  line-height: 200px;
+  text-align: center;
 }
 </style>

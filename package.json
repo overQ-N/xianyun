@@ -17,6 +17,7 @@
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "nuxt": "^2.0.0",
+    "vue-quill-editor": "^3.0.6",
     "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {

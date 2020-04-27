@@ -25,7 +25,14 @@ export default {
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    'assets/main.css'
+    'assets/main.css',
+    // 富文本编辑器 start--------
+    'quill/dist/quill.core.css',
+    // for snow theme
+    'quill/dist/quill.snow.css',
+    // for bubble theme
+    'quill/dist/quill.bubble.css'
+    // 富文本编辑器 end--------
   ],
 
   /*
@@ -33,7 +40,8 @@ export default {
   */
   plugins: [
     { src: '@/plugins/element-ui' },
-    { src: '~/plugins/localStorage.js', ssr: false }
+    { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '~plugins/nuxt-quill-plugin', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
